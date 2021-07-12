@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <Searchbar @search="getSearch" />
+    <Header @search="getSearch" />
     <Content :shows="searchResults" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import Searchbar from "./components/Searchbar.vue";
+import Header from "./components/Header.vue";
 import Content from "./components/Content.vue";
 
 export default {
   name: "App",
   components: {
-    Searchbar,
+    Header,
     Content,
   },
   data() {
@@ -45,5 +45,7 @@ export default {
 <style lang="scss">
 @import "@/style/commons.scss";
 #app {
+  min-height: 100vh;
+  background-color: $color2;
 }
 </style>
