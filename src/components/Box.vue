@@ -1,5 +1,9 @@
 <template>
-  <div id="box">
+  <div class="box">
+    <img
+      :src="'https://image.tmdb.org/t/p/w500' + show.poster_path"
+      :alt="show.title"
+    />
     {{ show.title }}
   </div>
 </template>
@@ -11,4 +15,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.box {
+  img {
+    width: 100%;
+  }
+}
+</style>

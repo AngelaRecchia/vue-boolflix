@@ -1,6 +1,13 @@
 <template>
   <div class="container">
-    <Box v-for="(show, index) in shows" :key="index" :show="show" />
+    <div class="row">
+      <Box
+        v-for="(show, index) in shows"
+        :key="index"
+        :show="show"
+        class="col-4 col-md-3 col-lg-2"
+      />
+    </div>
   </div>
 </template>
 
