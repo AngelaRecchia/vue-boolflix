@@ -23,6 +23,13 @@ export default {
       loading: true,
     };
   },
+  mounted() {
+    axios
+      .get(
+        "https://api.themoviedb.org/3/movie/top_rated?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&page=1"
+      )
+      .then((result) => (this.searchResults = result.data.results));
+  },
   methods: {
     getSearch(title) {
       this.titleToSearch = title;
@@ -36,6 +43,7 @@ export default {
           }
         )
         .then((result) => (this.searchResults = result.data.results));
+
       this.loading = false;
     },
   },

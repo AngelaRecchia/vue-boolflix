@@ -15,30 +15,47 @@
 
     <div class="title">{{ show.title }}</div>
     <div class="orig-title">{{ show.original_title }}</div>
-    <div class="vote">Rating: {{ show.vote_average }}</div>
-    <div class="lang">
-      <img
-        v-if="show.original_language == 'en'"
-        src="https://www.countryflags.io/us/flat/64.png"
-        alt="en"
-      />
-      <img
-        v-else
-        :src="
-          'https://www.countryflags.io/' +
-          show.original_language +
-          '/flat/64.png'
-        "
-        :alt="show.original_language"
-      />
+    <div class="miscInfos d-flex justify-content-between">
+      <div class="vote">
+        <i class="fas fa-star"></i> {{ show.vote_average }}
+      </div>
+      <div class="lang">
+        <img :src="getURLCountry()" :alt="country" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Box",
   props: ["show"],
+  data() {
+    return {
+      country: "",
+    };
+  },
+  methods: {
+    getURLCountry() {
+      axios
+        .get(
+          "https://api.themoviedb.org/3/movie/" +
+            this.show.id +
+            "?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d"
+        )
+        .then((result) => {
+          if (result.data.production_countries.length != 0) {
+            this.country = result.data.production_countries[0].iso_3166_1;
+          } else {
+            this.country = result.data.original_language;
+          }
+
+          if (this.country.toLowerCase() == "en") this.country = "GB";
+        });
+      return "https://www.countryflags.io/" + this.country + "/flat/64.png";
+    },
+  },
 };
 </script>
 
@@ -46,12 +63,14 @@ export default {
 @import "@/style/commons.scss";
 .box {
   padding: 20px;
-  background-color: rgba($color3, $alpha: 0.4);
   margin: 10px;
-  color: black;
+  color: $color3;
+  line-height: 25px;
   .poster {
     width: 100%;
     transition: filter 0.5s;
+    margin-bottom: 10px;
+    border-radius: 10px;
   }
   .title {
     font-weight: bold;
@@ -62,6 +81,7 @@ export default {
   }
   .lang img {
     width: 20px;
+    margin-top: -9px;
   }
   .vote {
     font-size: 12px;

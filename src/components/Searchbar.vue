@@ -3,6 +3,7 @@
     <input
       type="text"
       v-model="toSearch"
+      placeholder="Search movies or TV Shows"
       @keyup.enter="$emit('search', toSearch)"
     />
     <div class="button ms-3" @click="$emit('search', toSearch)">Search</div>
@@ -27,14 +28,18 @@ input {
   width: 30vw;
   min-width: 200px;
   border-radius: 30px;
-  height: 35px;
+  height: 40px;
   padding: 0 20px;
-  border: 2px solid black;
+  border: 1px solid black;
   color: $color2;
-  background-color: $color3;
+  background-color: lighten($color2, $amount: 20%);
+  transition: background-color 0.3s;
 
   &:focus {
     outline: none;
+  }
+  &:hover {
+    background-color: lighten($color2, $amount: 60%);
   }
 }
 .button {

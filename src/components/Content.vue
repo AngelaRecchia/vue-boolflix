@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row">
+    <div v-if="shows.length > 0" class="row">
       <Box
         v-for="(show, index) in shows"
         :key="index"
@@ -8,6 +8,8 @@
         class="col-4 col-md-3 col-lg-2"
       />
     </div>
+
+    <div v-else>No results</div>
   </div>
 </template>
 
@@ -22,4 +24,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "@/style/commons.scss";
+div {
+  color: $color3;
+}
+</style>
