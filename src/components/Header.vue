@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="container d-flex align-items-center justify-content-between">
-      <span id="logo">Boolflix</span>
+      <span id="logo" @click="refresh">Boolflix</span>
       <Searchbar @search="search" />
     </div>
   </header>
@@ -17,6 +17,9 @@ export default {
   methods: {
     search(text) {
       this.$emit("search", text);
+    },
+    refresh() {
+      window.location.reload();
     },
   },
 };

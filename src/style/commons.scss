@@ -8,3 +8,8 @@ $color3: #E0E2DB;
 body {
     font-family: 'Quicksand', sans-serif;
 }
+
+a, a:visited {
+    color: inherit;
+    text-decoration: none;
+}
