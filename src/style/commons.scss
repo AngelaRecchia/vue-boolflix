@@ -1,5 +1,10 @@
 @import "bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
 $color1: #8B2635;
 $color2: rgb(32, 32, 32);
 $color3: #E0E2DB;
+
+body {
+    font-family: 'Quicksand', sans-serif;
+}

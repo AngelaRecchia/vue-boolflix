@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div id="movies">
+    <div id="movies" class="py-4">
       <h4>Movies</h4>
       <div class="row" v-if="movies.length > 0">
         <BoxMovie
@@ -14,7 +14,7 @@
       <div v-else class="text-center">No results</div>
     </div>
 
-    <div id="tvShows">
+    <div id="tvShows" class="py-4">
       <h4>TV Shows</h4>
       <div class="row" v-if="tvShows.length > 0">
         <BoxShow
