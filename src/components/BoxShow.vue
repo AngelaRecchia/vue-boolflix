@@ -23,12 +23,7 @@
       </div>
     </div>
 
-    <InfoBox
-      :title="show.name"
-      :vote="show.vote_average"
-      :year="show.first_air_date"
-      :overview="show.overview"
-    />
+    <InfoBox type="show" :id="show.id" />
   </div>
 </template>
 
