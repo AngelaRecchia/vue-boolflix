@@ -53,7 +53,7 @@ export default {
 @import "@/style/commons.scss";
 #box {
   padding: 20px;
-  color: $color3;
+  color: white;
   line-height: 25px;
   font-family: "Quicksand", sans-serif;
   .poster {
