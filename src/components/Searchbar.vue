@@ -4,7 +4,7 @@
       type="text"
       v-model="toSearch"
       placeholder="Search movies or TV Shows"
-      @keyup.enter="$emit('search', toSearch)"
+      @keyup="$emit('search', toSearch)"
     />
     <div class="button ms-3" @click="$emit('search', toSearch)">Search</div>
   </div>
@@ -25,7 +25,7 @@ export default {
 @import "@/style/commons.scss";
 
 input {
-  width: 30vw;
+  width: 25vw;
   min-width: 200px;
   border-radius: 30px;
   height: 40px;
@@ -34,9 +34,11 @@ input {
   color: $color2;
   background-color: lighten($color2, $amount: 20%);
   transition: background-color 0.3s;
+  transition: width 0.3s;
 
   &:focus {
     outline: none;
+    width: 35vw;
   }
   &:hover {
     background-color: lighten($color2, $amount: 60%);

@@ -24,27 +24,33 @@ export default {
     };
   },
   mounted() {
-    axios
-      .get(
-        "https://api.themoviedb.org/3/movie/top_rated?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&page=1"
-      )
-      .then((result) => (this.searchResults = result.data.results));
+    this.defaultShow();
   },
   methods: {
-    getSearch(title) {
-      this.titleToSearch = title;
+    defaultShow() {
       axios
         .get(
-          "https://api.themoviedb.org/3/search/movie?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d",
-          {
-            params: {
-              query: this.titleToSearch,
-            },
-          }
+          "https://api.themoviedb.org/3/movie/top_rated?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&page=1"
         )
         .then((result) => (this.searchResults = result.data.results));
+    },
+    getSearch(title) {
+      this.titleToSearch = title;
+      if (title == "") this.defaultShow();
+      else {
+        axios
+          .get(
+            "https://api.themoviedb.org/3/search/movie?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d",
+            {
+              params: {
+                query: this.titleToSearch,
+              },
+            }
+          )
+          .then((result) => (this.searchResults = result.data.results));
 
-      this.loading = false;
+        this.loading = false;
+      }
     },
   },
 };

@@ -63,7 +63,6 @@ export default {
 @import "@/style/commons.scss";
 .box {
   padding: 20px;
-  margin: 10px;
   color: $color3;
   line-height: 25px;
   .poster {
