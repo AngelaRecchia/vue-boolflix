@@ -11,7 +11,9 @@
       <div class="genres">
         <span>Genres: </span>
         <span v-for="(genre, index) in genres" :key="index">
-          <span class="genre">{{ genre.name }}</span>
+          <span class="genre" @click="$parent.$emit('searchGenre', genre.id)">{{
+            genre.name
+          }}</span>
           <span v-if="index < genres.length - 1">, </span>
         </span>
       </div>

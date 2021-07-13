@@ -8,6 +8,7 @@
           :key="movie.id"
           :movie="movie"
           class="col-4 col-md-3 col-lg-2"
+          @searchGenre="searchGenre"
         />
       </div>
 
@@ -22,6 +23,7 @@
           :key="show.id"
           :show="show"
           class="col-4 col-md-3 col-lg-2"
+          @searchGenre="searchGenre"
         />
       </div>
 
@@ -39,6 +41,11 @@ export default {
   components: {
     BoxMovie,
     BoxShow,
+  },
+  methods: {
+    searchGenre(genre) {
+      this.$emit("searchGenre", genre);
+    },
   },
 };
 </script>

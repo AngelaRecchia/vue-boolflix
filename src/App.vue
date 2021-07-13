@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <Header @search="getSearch" />
-    <Content :movies="searchMovies" :tvShows="searchShows" />
+    <Content
+      :movies="searchMovies"
+      :tvShows="searchShows"
+      @searchGenre="searchGenre"
+    />
   </div>
 </template>
 
@@ -83,6 +87,29 @@ export default {
 
         this.loading = false;
       }
+    },
+    searchGenre(genre) {
+      axios
+        .get(
+          "https://api.themoviedb.org/3/discover/movie?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&sort_by=popularity.desc&page=1",
+          {
+            params: {
+              with_genres: genre,
+            },
+          }
+        )
+        .then((result) => (this.searchMovies = result.data.results));
+
+      axios
+        .get(
+          "https://api.themoviedb.org/3/discover/tv?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&sort_by=popularity.desc&page=1",
+          {
+            params: {
+              with_genres: genre,
+            },
+          }
+        )
+        .then((result) => (this.searchShows = result.data.results));
     },
   },
 };
