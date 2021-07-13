@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div id="box">
     <div class="imgBox">
       <img
         class="poster"
@@ -22,6 +22,17 @@
         <img :src="linkCountry" :alt="country" />
       </div>
     </div>
+
+    <b-tooltip :target="this" triggers="hover" placement="right" class="infos">
+      <span>{{ show.name }}</span>
+      <div class="datas d-flex justify-content-between">
+        <span><i class="fas fa-star"></i> {{ show.vote_average }}</span>
+        <span>{{ show.first_air_date.substring(0, 4) }}</span>
+      </div>
+      <div class="overview">
+        <strong>Overview:</strong> {{ show.overview.substring(0, 200) }}...
+      </div>
+    </b-tooltip>
   </div>
 </template>
 
@@ -47,7 +58,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/style/commons.scss";
-.box {
+#box {
   padding: 20px;
   color: $color3;
   line-height: 25px;
@@ -86,6 +97,9 @@ export default {
   }
   &:hover .play {
     opacity: 1;
+  }
+  .infos {
+    font-size: 10px;
   }
 }
 </style>
