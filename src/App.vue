@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header @search="getSearch" />
-    <Content :shows="searchResults" />
+    <Content :movies="searchMovies" :tvShows="searchShows" />
   </div>
 </template>
 
@@ -19,24 +19,34 @@ export default {
   data() {
     return {
       titleToSearch: "",
-      searchResults: [],
+      searchMovies: [],
+      searchShows: [],
       loading: true,
     };
   },
   mounted() {
-    this.defaultShow();
+    this.defaultMovies();
+    this.defaultShows();
   },
   methods: {
-    defaultShow() {
+    defaultMovies() {
       axios
         .get(
           "https://api.themoviedb.org/3/movie/top_rated?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&page=1"
         )
-        .then((result) => (this.searchResults = result.data.results));
+        .then((result) => (this.searchMovies = result.data.results));
+    },
+    defaultShows() {
+      axios
+        .get(
+          "https://api.themoviedb.org/3/tv/top_rated?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&page=1"
+        )
+        .then((result) => (this.searchShows = result.data.results));
     },
     getSearch(title) {
       this.titleToSearch = title;
-      if (title == "") this.defaultShow();
+      if (title == "") this.defaultMovies();
+      if (title == "") this.defaultShows();
       else {
         axios
           .get(
@@ -47,7 +57,18 @@ export default {
               },
             }
           )
-          .then((result) => (this.searchResults = result.data.results));
+          .then((result) => (this.searchMovies = result.data.results));
+
+        axios
+          .get(
+            "https://api.themoviedb.org/3/search/tv?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&page=1",
+            {
+              params: {
+                query: this.titleToSearch,
+              },
+            }
+          )
+          .then((result) => (this.searchShows = result.data.results));
 
         this.loading = false;
       }

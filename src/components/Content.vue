@@ -1,25 +1,44 @@
 <template>
   <div class="container">
-    <div v-if="shows.length > 0" class="row">
-      <Box
-        v-for="(show, index) in shows"
-        :key="index"
-        :show="show"
-        class="col-4 col-md-3 col-lg-2"
-      />
+    <div id="movies">
+      <div class="row" v-if="movies.length > 0">
+        <h4>Movies</h4>
+        <BoxMovie
+          v-for="(movie, index) in movies"
+          :key="index"
+          :movie="movie"
+          class="col-4 col-md-3 col-lg-2"
+        />
+      </div>
+
+      <div v-else>No results</div>
     </div>
 
-    <div v-else>No results</div>
+    <div id="tvShows">
+      <div class="row" v-if="tvShows.length > 0">
+        <h4>TV Shows</h4>
+        <BoxShow
+          v-for="(show, index) in tvShows"
+          :key="index"
+          :show="show"
+          class="col-4 col-md-3 col-lg-2"
+        />
+      </div>
+
+      <div v-else>No results</div>
+    </div>
   </div>
 </template>
 
 <script>
-import Box from "./Box.vue";
+import BoxMovie from "./BoxMovie.vue";
+import BoxShow from "./BoxShow.vue";
 export default {
   name: "Content",
-  props: ["shows"],
+  props: ["movies", "tvShows"],
   components: {
-    Box,
+    BoxMovie,
+    BoxShow,
   },
 };
 </script>

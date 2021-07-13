@@ -1,10 +1,10 @@
 <template>
-  <div class="box" v-if="show.vote_count > 20">
+  <div class="box" v-if="movie.vote_count > 20">
     <div class="imgBox">
       <img
         class="poster"
-        :src="'https://image.tmdb.org/t/p/w500' + show.poster_path"
-        :alt="show.title"
+        :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+        :alt="movie.title"
       />
 
       <img
@@ -13,11 +13,11 @@
       />
     </div>
 
-    <div class="title">{{ show.title }}</div>
-    <div class="orig-title">{{ show.original_title }}</div>
+    <div class="title">{{ movie.title }}</div>
+    <div class="orig-title">{{ movie.original_title }}</div>
     <div class="miscInfos d-flex justify-content-between">
       <div class="vote">
-        <i class="fas fa-star"></i> {{ show.vote_average }}
+        <i class="fas fa-star"></i> {{ movie.vote_average }}
       </div>
       <div class="lang">
         <img :src="getURLCountry()" :alt="country" />
@@ -29,8 +29,8 @@
 <script>
 import axios from "axios";
 export default {
-  name: "Box",
-  props: ["show"],
+  name: "BoxMovie",
+  props: ["movie"],
   data() {
     return {
       country: "",
@@ -41,7 +41,7 @@ export default {
       axios
         .get(
           "https://api.themoviedb.org/3/movie/" +
-            this.show.id +
+            this.movie.id +
             "?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d"
         )
         .then((result) => {
