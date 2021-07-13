@@ -23,27 +23,25 @@
       </div>
     </div>
 
-    <b-tooltip :target="this" triggers="hover" placement="right" class="infos">
-      <span>{{ movie.title }}</span>
-      <div class="datas d-flex justify-content-between">
-        <span><i class="fas fa-star"></i> {{ movie.vote_average }}</span>
-        <span>{{ movie.release_date.substring(0, 4) }}</span>
-      </div>
-      <div class="overview">
-        <strong>Overview:</strong> {{ movie.overview.substring(0, 200) }}...
-      </div>
-    </b-tooltip>
+    <InfoBox
+      :title="movie.title"
+      :vote="movie.vote_average"
+      :year="movie.release_date"
+      :overview="movie.overview"
+    />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import Stars from "./Stars.vue";
+import InfoBox from "./InfoBox.vue";
 export default {
   name: "BoxMovie",
   props: ["movie"],
   components: {
     Stars,
+    InfoBox,
   },
   data() {
     return {
