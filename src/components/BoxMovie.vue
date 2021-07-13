@@ -1,5 +1,5 @@
 <template>
-  <div class="box" v-if="movie.vote_count > 20">
+  <div class="box">
     <div class="imgBox">
       <img
         class="poster"
@@ -16,9 +16,8 @@
     <div class="title">{{ movie.title }}</div>
     <div class="orig-title">{{ movie.original_title }}</div>
     <div class="miscInfos d-flex justify-content-between">
-      <div class="vote">
-        <i class="fas fa-star"></i> {{ movie.vote_average }}
-      </div>
+      <Stars :rating="movie.vote_average" />
+
       <div class="lang">
         <img :src="getURLCountry()" :alt="country" />
       </div>
@@ -28,9 +27,13 @@
 
 <script>
 import axios from "axios";
+import Stars from "./Stars.vue";
 export default {
   name: "BoxMovie",
   props: ["movie"],
+  components: {
+    Stars,
+  },
   data() {
     return {
       country: "",
@@ -80,10 +83,6 @@ export default {
   }
   .lang img {
     width: 20px;
-    margin-top: -9px;
-  }
-  .vote {
-    font-size: 12px;
   }
   .imgBox {
     position: relative;

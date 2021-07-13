@@ -22,6 +22,7 @@ export default {
       searchMovies: [],
       searchShows: [],
       loading: true,
+      filt: [],
     };
   },
   mounted() {
@@ -57,7 +58,12 @@ export default {
               },
             }
           )
-          .then((result) => (this.searchMovies = result.data.results));
+          .then(
+            (result) =>
+              (this.searchMovies = result.data.results.filter(
+                (elem) => elem.vote_count > 500
+              ))
+          );
 
         axios
           .get(
@@ -68,7 +74,12 @@ export default {
               },
             }
           )
-          .then((result) => (this.searchShows = result.data.results));
+          .then(
+            (result) =>
+              (this.searchShows = result.data.results.filter(
+                (elem) => elem.vote_count > 500
+              ))
+          );
 
         this.loading = false;
       }

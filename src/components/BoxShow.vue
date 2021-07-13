@@ -1,5 +1,5 @@
 <template>
-  <div class="box" v-if="show.vote_count > 20">
+  <div class="box">
     <div class="imgBox">
       <img
         class="poster"
@@ -16,25 +16,30 @@
     <div class="title">{{ show.name }}</div>
     <div class="orig-title">{{ show.original_name }}</div>
     <div class="miscInfos d-flex justify-content-between">
-      <div class="vote">
-        <i class="fas fa-star"></i> {{ show.vote_average }}
-      </div>
+      <Stars :rating="show.vote_average" />
+
       <div class="lang">
-        <img :src="this.linkCountry" :alt="this.country" />
+        <img :src="linkCountry" :alt="country" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Stars from "./Stars.vue";
 export default {
   name: "BoxShow",
   props: ["show"],
+  components: {
+    Stars,
+  },
   data() {
     return {
-      country: this.show.origin_Country[0],
+      country: this.show.origin_country[0],
       linkCountry:
-        "https://www.countryflags.io/" + this.country + '/flat/64.png"',
+        "https://www.countryflags.io/" +
+        this.show.origin_country[0] +
+        "/flat/64.png",
     };
   },
 };
@@ -61,10 +66,6 @@ export default {
   }
   .lang img {
     width: 20px;
-    margin-top: -9px;
-  }
-  .vote {
-    font-size: 12px;
   }
   .imgBox {
     position: relative;

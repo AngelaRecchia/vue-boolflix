@@ -1,31 +1,31 @@
 <template>
   <div class="container">
     <div id="movies">
+      <h4>Movies</h4>
       <div class="row" v-if="movies.length > 0">
-        <h4>Movies</h4>
         <BoxMovie
-          v-for="(movie, index) in movies"
-          :key="index"
+          v-for="movie in movies"
+          :key="movie.id"
           :movie="movie"
           class="col-4 col-md-3 col-lg-2"
         />
       </div>
 
-      <div v-else>No results</div>
+      <div v-else class="text-center">No results</div>
     </div>
 
     <div id="tvShows">
+      <h4>TV Shows</h4>
       <div class="row" v-if="tvShows.length > 0">
-        <h4>TV Shows</h4>
         <BoxShow
-          v-for="(show, index) in tvShows"
-          :key="index"
+          v-for="show in tvShows"
+          :key="show.id"
           :show="show"
           class="col-4 col-md-3 col-lg-2"
         />
       </div>
 
-      <div v-else>No results</div>
+      <div v-else class="text-center">No results</div>
     </div>
   </div>
 </template>
