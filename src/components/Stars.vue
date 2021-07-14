@@ -44,6 +44,7 @@ export default {
         this.half = 0;
       } else {
         this.piene++;
+        this.vuote--;
         this.half = 0;
       }
     });

@@ -50,44 +50,38 @@ export default {
     },
     getSearch(title) {
       this.titleToSearch = title;
-      if (title == "") this.defaultMovies();
-      if (title == "") this.defaultShows();
-      else {
-        axios
-          .get(
-            "https://api.themoviedb.org/3/search/movie?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d",
-            {
-              params: {
-                query: this.titleToSearch,
-              },
-            }
-          )
-          .then(
-            (result) =>
-              (this.searchMovies = result.data.results.filter(
-                (elem) => elem.vote_count > 500
-              ))
-          );
+      const apiSearchMovies =
+        "https://api.themoviedb.org/3/search/movie?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d";
+      const apiSearchTV =
+        "https://api.themoviedb.org/3/search/tv?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d";
+      const paramQuery = {
+        params: {
+          query: this.titleToSearch,
+        },
+      };
 
+      if (this.titleToSearch == "") {
+        this.defaultMovies();
+        this.defaultShows();
+      } else {
         axios
-          .get(
-            "https://api.themoviedb.org/3/search/tv?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&page=1",
-            {
-              params: {
-                query: this.titleToSearch,
-              },
-            }
-          )
+          .all([
+            axios.get(apiSearchMovies, paramQuery),
+            axios.get(apiSearchTV, paramQuery),
+          ])
           .then(
-            (result) =>
-              (this.searchShows = result.data.results.filter(
+            axios.spread((resMovies, resTV) => {
+              this.searchMovies = resMovies.data.results.filter(
                 (elem) => elem.vote_count > 500
-              ))
+              );
+              this.searchShows = resTV.data.results.filter(
+                (elem) => elem.vote_count > 500
+              );
+            })
           );
-
-        this.loading = false;
       }
     },
+
     searchGenre(genre) {
       axios
         .get(

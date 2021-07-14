@@ -33,6 +33,7 @@ header {
     height: 100px;
 
     #logo {
+      cursor: pointer;
       text-transform: uppercase;
       font-size: 35px;
       color: rgb(206, 7, 7);
