@@ -6,7 +6,7 @@
       placeholder="Search movies or TV Shows"
       @keyup="$emit('search', toSearch)"
     />
-    <div class="button ms-3" @click="$emit('search', toSearch)">Search</div>
+    <i class="fas fa-search"></i>
   </div>
 </template>
 
@@ -23,10 +23,12 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/style/commons.scss";
-
+#search {
+  position: relative;
+}
 input {
-  width: 25vw;
-  min-width: 200px;
+  width: 20vw;
+  min-width: 265px;
   border-radius: 30px;
   height: 40px;
   padding: 0 20px;
@@ -44,14 +46,13 @@ input {
     background-color: lighten($color2, $amount: 60%);
   }
 }
-.button {
-  display: inline-block;
-  padding: 8px 20px;
-  border-radius: 20px;
-  background-color: $color3;
-  color: black;
+i {
+  color: $color2;
   cursor: pointer;
-  text-transform: uppercase;
-  font-size: 13px;
+  font-size: 20px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 </style>

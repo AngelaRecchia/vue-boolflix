@@ -10,11 +10,11 @@
       <div class="datas d-flex justify-content-between">
         <span>{{ duration }}</span>
 
-        <span>{{ year.substring(0, 4) }}</span>
-
         <div class="lang">
           <img :src="linkCountry" :alt="country" />
         </div>
+
+        <span>{{ year.substring(0, 4) }}</span>
       </div>
 
       <div class="overview">{{ overview.substring(0, 180) }}...</div>
