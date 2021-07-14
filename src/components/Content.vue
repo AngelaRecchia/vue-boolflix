@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+    <PickGenres />
+
     <div id="movies" class="py-4">
       <h4>Movies</h4>
       <div class="row" v-if="movies.length > 0">
@@ -44,11 +46,13 @@
 
 <script>
 import Box from "./Box.vue";
+import PickGenres from "./Genres.vue";
 export default {
   name: "Content",
   props: ["movies", "tvShows"],
   components: {
     Box,
+    PickGenres,
   },
   methods: {
     searchGenre(genre) {

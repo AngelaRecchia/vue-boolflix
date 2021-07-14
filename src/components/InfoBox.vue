@@ -52,6 +52,7 @@ export default {
   data() {
     return {
       title: "",
+      orig: "",
       vote: "",
       year: "",
       duration: "",
