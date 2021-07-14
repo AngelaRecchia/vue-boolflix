@@ -34,16 +34,16 @@ export default {
   },
   mounted() {
     this.$nextTick(function () {
-      let tempStar;
       this.piene = Math.floor(this.vote);
-      tempStar = 5 - this.vote;
-      this.vuote = Math.floor(tempStar);
-      this.half = tempStar - this.vuote;
-      if (this.half > 0.3 && this.half < 0.7) this.half = 1;
-      else if (this.half <= 0.3) {
+      this.half = this.vote - this.piene;
+      this.vuote = 5 - this.piene;
+      if (this.half > 0.2 && this.half < 0.8) {
+        this.half = 1;
+        this.vuote--;
+      } else if (this.half <= 0.2) {
         this.half = 0;
       } else {
-        this.vuote++;
+        this.piene++;
         this.half = 0;
       }
     });
