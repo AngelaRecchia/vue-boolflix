@@ -3,8 +3,8 @@
     <div class="imgBox">
       <img
         class="poster"
-        :src="'https://image.tmdb.org/t/p/w500' + show.poster_path"
-        :alt="show.name"
+        :src="'https://image.tmdb.org/t/p/w500' + poster"
+        :alt="title"
       />
 
       <img
@@ -13,38 +13,23 @@
       />
     </div>
 
-    <div class="title">{{ show.name }}</div>
-    <div class="orig-title">{{ show.original_name }}</div>
-    <div class="miscInfos d-flex justify-content-between">
-      <Stars :rating="show.vote_average" />
+    <div class="title">{{ title }}</div>
 
-      <div class="lang">
-        <img :src="linkCountry" :alt="country" />
-      </div>
-    </div>
+    <div v-if="title != orig" class="orig-title">{{ orig }}</div>
 
-    <InfoBox type="show" :id="show.id" />
+    <div class="vote"><i class="fas fa-star"></i> {{ vote }}</div>
+
+    <InfoBox :type="type" :id="id" />
   </div>
 </template>
 
 <script>
-import Stars from "./Stars.vue";
 import InfoBox from "./InfoBox.vue";
 export default {
-  name: "BoxShow",
-  props: ["show"],
+  name: "Box",
+  props: ["id", "title", "orig", "poster", "vote", "type"],
   components: {
-    Stars,
     InfoBox,
-  },
-  data() {
-    return {
-      country: this.show.origin_country[0],
-      linkCountry:
-        "https://www.countryflags.io/" +
-        this.show.origin_country[0] +
-        "/flat/64.png",
-    };
   },
 };
 </script>
@@ -69,8 +54,8 @@ export default {
     font-style: italic;
     font-size: 14px;
   }
-  .lang img {
-    width: 20px;
+  .vote {
+    font-size: 13px;
   }
   .imgBox {
     position: relative;

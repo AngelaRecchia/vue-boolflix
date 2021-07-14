@@ -3,15 +3,19 @@
     <div class="infos">
       <div class="title">{{ title }}</div>
 
-      <div class="datas d-flex justify-content-between">
-        <span><i class="fas fa-star"></i> {{ vote }}</span>
+      <Stars :rating="vote" class="stars text-center" />
 
+      <div class="datas d-flex justify-content-between">
         <span>{{ duration }}</span>
 
         <span>{{ year.substring(0, 4) }}</span>
+
+        <div class="lang">
+          <img :src="linkCountry" :alt="country" />
+        </div>
       </div>
 
-      <div class="overview">{{ overview.substring(0, 200) }}...</div>
+      <div class="overview">{{ overview.substring(0, 180) }}...</div>
 
       <div class="genres">
         <span>Genres: </span>
@@ -36,9 +40,13 @@
 
 <script>
 import axios from "axios";
+import Stars from "./Stars.vue";
 export default {
   name: "InfoBox",
   props: ["type", "id"],
+  components: {
+    Stars,
+  },
   data() {
     return {
       title: "",
@@ -48,6 +56,8 @@ export default {
       overview: "",
       genres: "",
       cast: "",
+      country: "",
+      linkCountry: "",
     };
   },
   mounted() {
@@ -66,6 +76,17 @@ export default {
             this.year = result.data.release_date;
             this.duration = result.data.runtime + "min";
             this.genres = result.data.genres;
+
+            if (result.data.production_countries.length != 0) {
+              this.country = result.data.production_countries[0].iso_3166_1;
+            } else {
+              this.country = result.data.original_language;
+            }
+
+            if (this.country.toLowerCase() == "en") this.country = "GB";
+
+            this.linkCountry =
+              "https://www.countryflags.io/" + this.country + "/flat/64.png";
           });
 
         axios
@@ -89,6 +110,9 @@ export default {
             this.year = result.data.first_air_date;
             this.duration = result.data.episode_run_time + "min";
             this.genres = result.data.genres;
+            this.country = result.data.origin_country[0];
+            this.linkCountry =
+              "https://www.countryflags.io/" + this.country + "/flat/64.png";
           });
 
         axios
@@ -118,7 +142,8 @@ export default {
 .datas,
 .overview,
 .genres,
-.cast {
+.cast,
+.stars {
   margin: 10px 0;
 }
 .overview {
@@ -132,5 +157,9 @@ export default {
 .actor {
   cursor: pointer;
   color: $color3;
+}
+.lang img {
+  width: 20px;
+  margin-top: -3px;
 }
 </style>

@@ -3,10 +3,15 @@
     <div id="movies" class="py-4">
       <h4>Movies</h4>
       <div class="row" v-if="movies.length > 0">
-        <BoxMovie
+        <Box
           v-for="movie in movies"
           :key="movie.id"
-          :movie="movie"
+          :id="movie.id"
+          :poster="movie.poster_path"
+          :title="movie.title"
+          :orig="movie.original_title"
+          :vote="movie.vote_average"
+          type="movie"
           class="col-4 col-md-3 col-lg-2"
           @searchGenre="searchGenre"
         />
@@ -18,10 +23,15 @@
     <div id="tvShows" class="py-4">
       <h4>TV Shows</h4>
       <div class="row" v-if="tvShows.length > 0">
-        <BoxShow
+        <Box
           v-for="show in tvShows"
           :key="show.id"
-          :show="show"
+          :id="show.id"
+          :poster="show.poster_path"
+          :title="show.name"
+          :orig="show.original_name"
+          :vote="show.vote_average"
+          :type="show"
           class="col-4 col-md-3 col-lg-2"
           @searchGenre="searchGenre"
         />
@@ -33,14 +43,12 @@
 </template>
 
 <script>
-import BoxMovie from "./BoxMovie.vue";
-import BoxShow from "./BoxShow.vue";
+import Box from "./Box.vue";
 export default {
   name: "Content",
   props: ["movies", "tvShows"],
   components: {
-    BoxMovie,
-    BoxShow,
+    Box,
   },
   methods: {
     searchGenre(genre) {
