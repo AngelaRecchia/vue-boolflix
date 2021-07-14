@@ -30,24 +30,22 @@ export default {
     };
   },
   mounted() {
-    this.defaultMovies();
-    this.defaultShows();
+    this.default();
   },
   methods: {
-    defaultMovies() {
-      axios
-        .get(
-          "https://api.themoviedb.org/3/movie/top_rated?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&page=1"
-        )
-        .then((result) => (this.searchMovies = result.data.results));
+    default() {
+      const topMovies =
+        "https://api.themoviedb.org/3/movie/top_rated?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&page=1";
+      const topTV =
+        "https://api.themoviedb.org/3/tv/top_rated?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&page=1";
+      axios.all([axios.get(topMovies), axios.get(topTV)]).then(
+        axios.spread((resMovies, resTV) => {
+          this.searchMovies = resMovies.data.results;
+          this.searchShows = resTV.data.results;
+        })
+      );
     },
-    defaultShows() {
-      axios
-        .get(
-          "https://api.themoviedb.org/3/tv/top_rated?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&page=1"
-        )
-        .then((result) => (this.searchShows = result.data.results));
-    },
+
     getSearch(title) {
       this.titleToSearch = title;
       const apiSearchMovies =
@@ -61,8 +59,7 @@ export default {
       };
 
       if (this.titleToSearch == "") {
-        this.defaultMovies();
-        this.defaultShows();
+        this.default();
       } else {
         axios
           .all([
@@ -83,27 +80,27 @@ export default {
     },
 
     searchGenre(genre) {
-      axios
-        .get(
-          "https://api.themoviedb.org/3/discover/movie?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&sort_by=popularity.desc&page=1",
-          {
-            params: {
-              with_genres: genre,
-            },
-          }
-        )
-        .then((result) => (this.searchMovies = result.data.results));
+      const genreMovies =
+        "https://api.themoviedb.org/3/discover/movie?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&sort_by=popularity.desc&page=1";
+      const genreTV =
+        "https://api.themoviedb.org/3/discover/tv?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&sort_by=popularity.desc&page=1";
+      const paramGenre = {
+        params: {
+          with_genres: genre,
+        },
+      };
 
       axios
-        .get(
-          "https://api.themoviedb.org/3/discover/tv?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&sort_by=popularity.desc&page=1",
-          {
-            params: {
-              with_genres: genre,
-            },
-          }
-        )
-        .then((result) => (this.searchShows = result.data.results));
+        .all([
+          axios.get(genreMovies, paramGenre),
+          axios.get(genreTV, paramGenre),
+        ])
+        .then(
+          axios.spread((resMovies, resTV) => {
+            this.searchMovies = resMovies.data.results;
+            this.searchShows = resTV.data.results;
+          })
+        );
     },
   },
 };

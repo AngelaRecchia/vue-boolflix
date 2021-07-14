@@ -15,8 +15,6 @@
 
     <div class="title">{{ title }}</div>
 
-    <div v-if="title != orig" class="orig-title">{{ orig }}</div>
-
     <div class="vote"><i class="fas fa-star"></i> {{ vote }}</div>
 
     <InfoBox :type="type" :id="id" />
@@ -49,10 +47,6 @@ export default {
   }
   .title {
     font-weight: bold;
-  }
-  .orig-title {
-    font-style: italic;
-    font-size: 14px;
   }
   .vote {
     font-size: 13px;

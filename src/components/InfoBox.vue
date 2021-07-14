@@ -3,6 +3,8 @@
     <div class="infos">
       <div class="title">{{ title }}</div>
 
+      <div v-if="title != orig" class="orig-title">{{ orig }}</div>
+
       <Stars :rating="vote" class="stars text-center" />
 
       <div class="datas d-flex justify-content-between">
@@ -73,6 +75,7 @@ export default {
             this.vote = result.data.vote_average;
             this.overview = result.data.overview;
             this.title = result.data.title;
+            this.orig = result.data.original_title;
             this.year = result.data.release_date;
             this.duration = result.data.runtime + "min";
             this.genres = result.data.genres;
@@ -107,6 +110,7 @@ export default {
             this.vote = result.data.vote_average;
             this.overview = result.data.overview;
             this.title = result.data.name;
+            this.orig = result.data.original_name;
             this.year = result.data.first_air_date;
             this.duration = result.data.episode_run_time + "min";
             this.genres = result.data.genres;
@@ -139,11 +143,12 @@ export default {
   font-weight: 700;
   text-align: center;
 }
-.datas,
-.overview,
-.genres,
-.cast,
-.stars {
+.orig-title {
+  font-style: italic;
+  font-size: 11px;
+  text-align: center;
+}
+.infos > * {
   margin: 10px 0;
 }
 .overview {
