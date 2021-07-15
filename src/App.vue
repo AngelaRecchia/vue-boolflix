@@ -25,8 +25,8 @@ export default {
       titleToSearch: "",
       searchMovies: [],
       searchShows: [],
-      loading: true,
-      filt: [],
+      storedMovies: [],
+      storedShows: [],
     };
   },
   mounted() {
@@ -69,10 +69,10 @@ export default {
           .then(
             axios.spread((resMovies, resTV) => {
               this.searchMovies = resMovies.data.results.filter(
-                (elem) => elem.vote_count > 500
+                (elem) => elem.vote_count > 200
               );
               this.searchShows = resTV.data.results.filter(
-                (elem) => elem.vote_count > 500
+                (elem) => elem.vote_count > 200
               );
             })
           );

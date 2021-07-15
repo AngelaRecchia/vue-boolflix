@@ -1,13 +1,13 @@
 <template>
   <div id="filterGenres">
-    <div id="buttonG">
+    <div id="buttonG" class="button" @click="showing = !showing">
       <i class="fas fa-filter"></i> Genre:
       <span v-for="(picked, index) in pickedG" :key="index" class="nameG"
-        >{{ picked.name }}
+        >{{ picked.name }}<span v-if="index < pickedG.length - 1">, </span>
       </span>
     </div>
 
-    <div id="showG">
+    <div id="showG" v-if="showing">
       <b-form-group v-model="pickedG">
         <b-form-checkbox-group v-model="pickedG" id="listG">
           <b-form-checkbox
@@ -33,6 +33,7 @@ export default {
       all: { id: 0, name: "All" },
       pickedG: [],
       options: [],
+      showing: false,
     };
   },
   mounted() {
@@ -49,6 +50,7 @@ export default {
   },
   updated() {
     if (this.pickedG.length == 0) this.pickedG.push(this.all);
+    this.$emit("filterGenres", this.pickedG);
   },
   methods: {
     check(val) {
@@ -59,7 +61,6 @@ export default {
         );
       }
       if (val.id == 0) this.pickedG = [this.all];
-      console.log(val.id);
     },
   },
 };
@@ -68,24 +69,55 @@ export default {
 <style lang="scss" scoped>
 @import "@/style/commons.scss";
 #filterGenres {
-  margin: 20px 0;
+  margin-top: 20px;
+  font-size: 14px;
+  position: relative;
+}
+.button {
+  border-radius: 5px;
+
+  display: inline-block;
+  font-weight: 600;
+  cursor: pointer;
 }
 #buttonG {
   background-color: black;
-  border-radius: 5px;
   padding: 10px 15px;
-  display: inline-block;
+}
+#filter {
+  padding: 5px 10px;
+  font-size: 12px;
+  color: black;
+  position: absolute;
+  right: 30px;
+  bottom: 20px;
+  background-color: lighten($color2, $amount: 50%);
+  &:hover {
+    background-color: lighten($color2, $amount: 60%);
+  }
+}
+#showG {
+  position: absolute;
+  top: 40px;
+  width: 500px;
+  z-index: 2;
+  padding: 15px;
+  background-color: rgba($color: #000000, $alpha: 0.85);
+  margin-top: 10px;
+  border-radius: 5px;
 }
 #listG {
-  width: 40vw;
-  height: 200px;
-  display: flex;
+  height: 180px;
+  display: inline-flex;
   flex-direction: column;
   flex-wrap: wrap;
   font-size: 13px;
-  padding: 15px;
-  background-color: black;
-  margin-top: 10px;
-  border-radius: 5px;
+  & > * {
+    padding: 5px 10px;
+    border-radius: 5px;
+    &:hover {
+      background-color: rgba($color: #000000, $alpha: 0.9);
+    }
+  }
 }
 </style>
