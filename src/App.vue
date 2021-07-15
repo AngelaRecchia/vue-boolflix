@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <Header @search="getSearch" />
+    <Header @search="getSearch" @showM="showM = true" @showTV="showM = false" />
     <Content
       :movies="searchMovies"
       :tvShows="searchShows"
+      :show="showM"
+      :text="text"
       @searchGenre="searchGenre"
     />
   </div>
@@ -25,8 +27,8 @@ export default {
       titleToSearch: "",
       searchMovies: [],
       searchShows: [],
-      storedMovies: [],
-      storedShows: [],
+      showM: true,
+      text: "",
     };
   },
   mounted() {
@@ -34,6 +36,8 @@ export default {
   },
   methods: {
     default() {
+      this.text = "Top Rated";
+
       const topMovies =
         "https://api.themoviedb.org/3/movie/top_rated?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d&page=1";
       const topTV =
@@ -48,6 +52,7 @@ export default {
 
     getSearch(title) {
       this.titleToSearch = title;
+      this.text = "Results for: " + title;
       const apiSearchMovies =
         "https://api.themoviedb.org/3/search/movie?api_key=1dafa5cfbeee5c77b53b196c6bc8c45d";
       const apiSearchTV =

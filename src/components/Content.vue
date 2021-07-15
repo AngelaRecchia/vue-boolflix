@@ -2,8 +2,9 @@
   <div class="container">
     <PickGenres @filterGenres="filterGenres" />
 
-    <div id="movies" class="py-4">
+    <div id="movies" class="py-4" v-if="show">
       <h4>Movies</h4>
+      <h5>{{ text }}</h5>
       <div class="row" v-if="movies.length > 0">
         <Box
           v-for="movie in movies"
@@ -23,8 +24,9 @@
       <div v-else class="text-center">No results</div>
     </div>
 
-    <div id="tvShows" class="py-4">
+    <div id="tvShows" class="py-4" v-if="show == false">
       <h4>TV Shows</h4>
+      <h5>{{ text }}</h5>
       <div class="row" v-if="tvShows.length > 0">
         <Box
           v-for="show in tvShows"
@@ -51,7 +53,7 @@ import Box from "./Box.vue";
 import PickGenres from "./Genres.vue";
 export default {
   name: "Content",
-  props: ["movies", "tvShows"],
+  props: ["movies", "tvShows", "show", "text"],
   data() {
     return {
       gen: [0],
